@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/Lookm/goProject/project_manager/repl"
 	"fmt"
+	"github.com/integralnova/Project-Manager/repl"
 )
 
 type request struct {
@@ -28,5 +28,5 @@ func WebService(){
 
 func start_repl() {
 	fmt.Println("Starting web service...")
-	repl()
+	repl.Repl()
 }

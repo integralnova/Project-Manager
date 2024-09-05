@@ -1,4 +1,4 @@
-package main
+package repl
 
 import (
 	"bufio"
@@ -7,12 +7,12 @@ import (
 	"strings"
 )
 
-func scanNext(scanner bufio.Scanner) []string {
+func scanNext(scanner *bufio.Scanner) []string {
 	scanner.Scan()
 	return cleanInput(scanner.Text())
 }
 
-func repl() {
+func Repl() {
 	scanner := bufio.NewScanner(os.Stdin)
 	for {
 		fmt.Print(">> ")

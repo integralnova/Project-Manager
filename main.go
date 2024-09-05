@@ -1,7 +1,7 @@
 package main
 
 import (
-	b "project_manager/service"
+	b "github.com/integralnova/Project-Manager/service"
 )
 
 func main() {
