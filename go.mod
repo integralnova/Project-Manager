@@ -1,3 +1,3 @@
-module github.com/Lookm/goProject
+module github.com/integralnova/goProject
 
 go 1.22.4
