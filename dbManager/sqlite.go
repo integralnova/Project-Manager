@@ -2,7 +2,8 @@ package dbmanager
 
 import (
 	"database/sql"
-	"github.com/integralnova/project-manager/models"
+
+	"github.com/integralnova/Project-Manager/models"
 )
 
 type PostModel struct {
