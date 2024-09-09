@@ -63,7 +63,7 @@ func init() {
 	// dbManager init logic
 	p := make(permits)
 	GetPermits(p)
-	makedb()
+	
 }
 
 func sqlite() {

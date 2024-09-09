@@ -2,39 +2,40 @@ package dbmanager
 
 import (
 	"database/sql"
-	"fmt"
-	"log"
+	"github.com/integralnova/project-manager/models"
 )
 
-func checkErr(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
+type PostModel struct {
+	DB *sql.DB
 }
 
-// Connect to database
-func makedb() {
-	fmt.Println(sql.Drivers())
-	db, err := sql.Open("sqlite3", "./permits.db")
-	checkErr(err)
-	defer db.Close()
+func (m *PostModel) Insert(title, content string) error {
+	stmt := `INSERT INTO posts (title, content, createdAt)
+	VALUES (?, ?, datetime('now'))`
+	_, err := m.DB.Exec(stmt, title, content)
+	return err
+}
 
-	sqlStmt := `
-	CREATE TABLE permits ( id INTEGER PRIMARY KEY, permit INTEGER);
-	`
-	_, err = db.Exec(sqlStmt)
+func (m *PostModel) All() ([]models.Post, error) {
+	stmt := `SELECT id, title, content, createdAt FROM posts ORDER BY id DESC`
+	rows, err := m.DB.Query(stmt)
 	if err != nil {
-		log.Printf("%q: %s\n", err, sqlStmt)
-		return
+		return nil, err
 	}
-	sql2 := `
-	INSERT INTO permits VALUES 1;
-	`
-	x, err := db.Exec(sql2)
-	if err != nil {
-		log.Printf("%q: %s\n", err, sqlStmt)
-		return
+	posts := []models.Post{}
+	for rows.Next() {
+		p := models.Post{}
+		err := rows.Scan(&p.ID, &p.Title, &p.Content, &p.CreatedAt)
+		if err != nil {
+			return nil, err
+		}
+		posts = append(posts, p)
 	}
-	fmt.Println(x)
 
+	err = rows.Err()
+	if err != nil {
+		return nil, err
+	}
+
+	return posts, nil
 }

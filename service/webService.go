@@ -1,25 +1,35 @@
 package service
 
 import (
-	"fmt"
+	"database/sql"
+	"log"
+	"net/http"
 
-	"github.com/integralnova/Project-Manager/repl"
+	"github.com/integralnova/project-manager/dbManager/sqlite"
+	_ "github.com/mattn/go-sqlite3"
 )
 
-type request struct {
-	id        int
-	requester string //user
-
+type app struct {
+	posts *sqlite.PostModel
 }
-
-var request_queue = make(map[int]request)
 
 func WebService() {
-	start_repl()
+	db, err := sql.Open("sqlite3", "./app.db")
+	if err != nil {
+		log.Fatal(err)
+	}
 
-}
+	app := app{
+		posts: &sqlite.PostModel{
+			DB: db,
+		},
+	}
 
-func start_repl() {
-	fmt.Println("Starting web service...")
-	repl.Repl()
+	srv := http.Server{
+		Addr:    ":8000",
+		Handler: app.routes(),
+	}
+
+	log.Println("Listing on :8000")
+	srv.ListenAndServe()
 }
