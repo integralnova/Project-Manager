@@ -5,16 +5,17 @@ import (
 	"fmt"
 	"os"
 	"strings"
-
-	db "github.com/integralnova/Project-Manager/dbManager"
 )
+
+///IGNORE THIS
+///IGNORE THIS
+///IGNORE THIS
+///IGNORE THIS
 
 func scanNext(scanner *bufio.Scanner) []string {
 	scanner.Scan()
 	return cleanInput(scanner.Text())
 }
-
-var permit = db.Permit{}
 
 func Repl() {
 	scanner := bufio.NewScanner(os.Stdin)
@@ -28,7 +29,6 @@ exit:
 			//
 		case "new":
 			// Create a new permit
-			db.NewPermit(permit)
 		case "search":
 		case "exit":
 			break exit
