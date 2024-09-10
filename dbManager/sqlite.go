@@ -6,31 +6,31 @@ import (
 	models "github.com/integralnova/Project-Manager/internal"
 )
 
-type PostModel struct {
+type PermitModel struct {
 	DB *sql.DB
 }
 
-func (m *PostModel) Insert(title, content string) error {
+func (m *PermitModel) Insert(title, content string) error {
 	stmt := `INSERT INTO posts (title, content, createdAt)
 	VALUES (?, ?, datetime('now'))`
 	_, err := m.DB.Exec(stmt, title, content)
 	return err
 }
 
-func (m *PostModel) All() ([]models.Post, error) {
+func (m *PermitModel) All() ([]models.Permits, error) {
 	stmt := `SELECT id, title, content, createdAt FROM posts ORDER BY id DESC`
 	rows, err := m.DB.Query(stmt)
 	if err != nil {
 		return nil, err
 	}
-	posts := []models.Post{}
+	permits := []models.Permits{}
 	for rows.Next() {
-		p := models.Post{}
-		err := rows.Scan(&p.ID, &p.Title, &p.Content, &p.CreatedAt)
+		p := models.Permits{}
+		err := rows.Scan(&p.ID, &p.PermitID, &p.DateReceived, &p.Designer)
 		if err != nil {
 			return nil, err
 		}
-		posts = append(posts, p)
+		permits = append(permits, p)
 	}
 
 	err = rows.Err()
@@ -38,5 +38,5 @@ func (m *PostModel) All() ([]models.Post, error) {
 		return nil, err
 	}
 
-	return posts, nil
+	return permits, nil
 }

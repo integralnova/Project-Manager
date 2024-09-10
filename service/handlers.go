@@ -6,7 +6,7 @@ import (
 )
 
 func (app *app) getHome(w http.ResponseWriter, r *http.Request) {
-	posts, err := app.posts.All()
+	posts, err := app.permits.All()
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
@@ -38,7 +38,7 @@ func (app *app) storePost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = app.posts.Insert(
+	err = app.permits.Insert(
 		r.PostForm.Get("title"),
 		r.PostForm.Get("content"),
 	)

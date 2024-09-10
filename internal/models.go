@@ -2,20 +2,20 @@ package models
 
 import "time"
 
-type Post struct {
-	id               int
-	permitid         string
-	companyName      string
-	reference        string
-	datereceived     time.Time
-	dateapproved     string
-	designer         employee
-	designstartdate  time.Time
-	designfinishdate time.Time
-	permittype       string
-	permitstatus     permitstatus
-	owner            employee
-	status           designstatus
+type Permits struct {
+	ID               int
+	PermitID         string
+	CompanyName      string
+	Reference        string
+	DateReceived     time.Time
+	DateApproved     string
+	Designer         employee
+	DesignStartDate  time.Time
+	DesignFinishDate time.Time
+	PermitType       string
+	PermitStatus     permitstatus
+	Owner            employee
+	Status           designstatus
 }
 
 type permitstatus string

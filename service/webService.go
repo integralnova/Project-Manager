@@ -10,7 +10,7 @@ import (
 )
 
 type app struct {
-	posts *sqlite.PostModel
+	permits *sqlite.PermitModel
 }
 
 func WebService() {
@@ -20,7 +20,7 @@ func WebService() {
 	}
 
 	app := app{
-		posts: &sqlite.PostModel{
+		permits: &sqlite.PermitModel{
 			DB: db,
 		},
 	}
