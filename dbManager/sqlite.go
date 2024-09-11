@@ -17,16 +17,19 @@ func (m *PermitModel) Insert(title, content string) error {
 	return err
 }
 
-func (m *PermitModel) All() ([]models.Permits, error) {
+// this could ugly. Need to figure out if i can some how break all permits in to pages
+// Look into limit offset
+func (m *PermitModel) Getpermits() ([]models.PermitsModel, error) {
 	stmt := `SELECT id, title, content, createdAt FROM posts ORDER BY id DESC`
 	rows, err := m.DB.Query(stmt)
 	if err != nil {
 		return nil, err
 	}
-	permits := []models.Permits{}
+	permits := []models.PermitsModel{}
+
 	for rows.Next() {
-		p := models.Permits{}
-		err := rows.Scan(&p.ID, &p.PermitID, &p.DateReceived, &p.Designer)
+		p := models.PermitsModel{}
+		err := rows.Scan(&p.ID, &p.PermitID, &p.DateReceived, &p.Owner)
 		if err != nil {
 			return nil, err
 		}

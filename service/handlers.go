@@ -5,14 +5,14 @@ import (
 	"net/http"
 )
 
-func (app *app) getHome(w http.ResponseWriter, r *http.Request) {
-	posts, err := app.permits.All()
+func (app *app) getpermits(w http.ResponseWriter, r *http.Request) {
+	posts, err := app.permits.Getpermits()
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
 	}
 
-	t, err := template.ParseFiles("./assets/templates/home.page.html")
+	t, err := template.ParseFiles("./templates/home.page.html")
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
@@ -22,7 +22,7 @@ func (app *app) getHome(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *app) createPost(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("./assets/templates/post.create.page.html")
+	t, err := template.ParseFiles("./templates/post.create.page.html")
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return

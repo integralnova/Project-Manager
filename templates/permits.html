@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table with Random Data</title>
+    <style>
+        body {
+            margin: 1in; /* 1 inch margin */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    {{range .Permits}}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>PermitID</th>
+                <th>CompanyName</th>
+                <th>Reference</th>
+                <th>DateReceived</th>
+                <th>DateDue</th>
+                <th>Owner</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>{{.ID}}</td><td>{{.PermitID}}</td><td>{{.CompanyName}}</td><td>{{.Reference}}</td><td>{{.DateReceived}}</td><td>{{.DateDue}}</td><td>{{.Owner}}</td><td>{{.Status}}</td></tr>
+        </tbody>
+    </table>
+    {{end}}
+</body>
+</html>
