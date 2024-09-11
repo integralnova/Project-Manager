@@ -2,20 +2,15 @@ package models
 
 import "time"
 
-type Permits struct {
-	ID               int
-	PermitID         string
-	CompanyName      string
-	Reference        string
-	DateReceived     time.Time
-	DateApproved     string
-	Designer         employee
-	DesignStartDate  time.Time
-	DesignFinishDate time.Time
-	PermitType       string
-	PermitStatus     permitstatus
-	Owner            employee
-	Status           designstatus
+type PermitsModel struct {
+	ID           int
+	PermitID     string
+	CompanyName  string
+	Reference    string
+	DateReceived time.Time
+	DateDue      time.Time
+	PermitStatus permitstatus
+	Owner        employee
 }
 
 type permitstatus string
