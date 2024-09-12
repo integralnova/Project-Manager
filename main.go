@@ -11,4 +11,9 @@ func main() {
 
 }
 
-//TODO: Permit models, dbmanager, routes sql stuff
+//TODO:
+//- Model
+//// CRUD etc
+//- Goose/DB stuff
+
+//pcs

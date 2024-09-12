@@ -3,6 +3,9 @@ package service
 import (
 	"html/template"
 	"net/http"
+	"time"
+
+	models "github.com/integralnova/Project-Manager/internal"
 )
 
 func (app *app) getpermits(w http.ResponseWriter, r *http.Request) {
@@ -12,7 +15,7 @@ func (app *app) getpermits(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	t, err := template.ParseFiles("./templates/home.page.html")
+	t, err := template.ParseFiles("./templates/permits.html")
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
@@ -31,17 +34,25 @@ func (app *app) createPost(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, nil)
 }
 
-func (app *app) storePost(w http.ResponseWriter, r *http.Request) {
+func (app *app) newPermit(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
 		http.Error(w, err.Error(), 400)
 		return
 	}
 
-	err = app.permits.Insert(
-		r.PostForm.Get("title"),
-		r.PostForm.Get("content"),
-	)
+	permit := models.PermitsModel{
+		PermitID:     r.PostForm.Get("permit_id"),
+		CompanyName:  r.PostForm.Get("company_name"),
+		Reference:    r.PostForm.Get("reference"),
+		DateReceived: time.Now(),
+		DateDue:      time.Now().AddDate(0, 0, 30),
+		PermitStatus: r.PostForm.Get("permit_status"),
+		Designer:     r.PostForm.Get("name"),
+	}
+
+	err = app.permits.Insert(permit)
+
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
