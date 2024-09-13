@@ -9,7 +9,7 @@ import (
 )
 
 func (app *app) getpermits(w http.ResponseWriter, r *http.Request) {
-	posts, err := app.permits.Getpermits()
+	permits, err := app.permits.Getpermits()
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
@@ -21,7 +21,7 @@ func (app *app) getpermits(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	t.Execute(w, map[string]any{"Posts": posts})
+	t.Execute(w, map[string]any{"permits": permits})
 }
 
 func (app *app) createPost(w http.ResponseWriter, r *http.Request) {

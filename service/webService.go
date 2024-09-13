@@ -30,6 +30,6 @@ func WebService() {
 		Handler: app.routes(),
 	}
 
-	log.Println("Listing on :8000")
+	log.Println("Listening on :8000")
 	srv.ListenAndServe()
 }

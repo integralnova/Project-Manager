@@ -27,7 +27,6 @@
     </style>
 </head>
 <body>
-    {{range .Permits}}
     <table>
         <thead>
             <tr>
@@ -37,14 +36,28 @@
                 <th>Reference</th>
                 <th>DateReceived</th>
                 <th>DateDue</th>
-                <th>Owner</th>
+                <th>Designer</th>
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            <tr><td>{{.ID}}</td><td>{{.PermitID}}</td><td>{{.CompanyName}}</td><td>{{.Reference}}</td><td>{{.DateReceived}}</td><td>{{.DateDue}}</td><td>{{.Owner}}</td><td>{{.Status}}</td></tr>
+            {{range .permits}}
+            <tr>
+                <td>{{.ID}}</td>
+                <td>{{.PermitID}}</td>
+                <td>{{.CompanyName}}</td>
+                <td>{{.Reference}}</td>
+                <td>{{.DateReceived}}</td>
+                <td>{{.DateDue}}</td>
+                <td>{{.Designer}}</td>
+                <td>{{.PermitStatus}}</td>
+            </tr>
+            
+            {{end}}
         </tbody>
     </table>
-    {{end}}
+    
+     
+    
 </body>
 </html>
