@@ -19,8 +19,7 @@ func (m *PermitModel) Insert(permit models.PermitsModel) error {
 	return err
 }
 
-// this could get ugly. Need to figure out if i can some how break all permits in to pages
-// Look into limit offset
+// time.Time parases incorrectly from datetime in sqlite
 func (m *PermitModel) Getpermits() ([]models.PermitsModel, error) {
 	stmt := `SELECT * FROM permits ORDER BY id DESC`
 	rows, err := m.DB.Query(stmt)
