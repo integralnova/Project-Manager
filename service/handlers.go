@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 	"time"
@@ -35,7 +36,9 @@ func (app *app) createPost(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *app) newPermit(w http.ResponseWriter, r *http.Request) {
+
 	err := r.ParseForm()
+	fmt.Println(r.PostForm)
 	if err != nil {
 		http.Error(w, err.Error(), 400)
 		return
@@ -50,6 +53,7 @@ func (app *app) newPermit(w http.ResponseWriter, r *http.Request) {
 		PermitStatus: r.PostForm.Get("permit_status"),
 		Designer:     r.PostForm.Get("name"),
 	}
+	fmt.Println(permit)
 
 	err = app.permits.Insert(permit)
 
@@ -58,5 +62,5 @@ func (app *app) newPermit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http.Redirect(w, r, "/", http.StatusFound)
+	http.Redirect(w, r, "/permits", http.StatusFound)
 }
