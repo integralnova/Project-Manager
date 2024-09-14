@@ -9,7 +9,6 @@ import (
 	"strings"
 
 	models "github.com/integralnova/Project-Manager/internal"
-	sqlite "github.com/integralnova/Project-Manager/internal"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -19,7 +18,7 @@ func scanNext(scanner *bufio.Scanner) []string {
 }
 
 type app struct {
-	permits *sqlite.PermitModel
+	permits *models.APPDB
 }
 
 func Repl() {
@@ -29,7 +28,7 @@ func Repl() {
 	}
 
 	app := app{
-		permits: &sqlite.PermitModel{
+		permits: &models.APPDB{
 			DB: db,
 		},
 	}

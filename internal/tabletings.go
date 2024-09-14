@@ -5,11 +5,11 @@ import (
 	"log"
 )
 
-type PermitModel struct {
+type APPDB struct {
 	DB *sql.DB
 }
 
-func (m *PermitModel) NewPermit(permit PermitModelPermitID) error {
+func (m *APPDB) NewPermit(permit PermitModelPermitID) error {
 	stmt := `INSERT INTO permitid (permitID)
 	VALUES (?)`
 	_, err := m.DB.Exec(stmt, permit.Permit)
@@ -17,7 +17,7 @@ func (m *PermitModel) NewPermit(permit PermitModelPermitID) error {
 	return err
 }
 
-func (m *PermitModel) UpdatePermitCompany(permit PermitModelPermitCompany) error {
+func (m *APPDB) UpdatePermitCompany(permit PermitModelPermitCompany) error {
 	stmt := `INSERT INTO permit_company (permit, companyName)
 	VALUES (?, ?)`
 	_, err := m.DB.Exec(stmt, permit.Permit, permit.CompanyName)
@@ -25,7 +25,7 @@ func (m *PermitModel) UpdatePermitCompany(permit PermitModelPermitCompany) error
 	return err
 }
 
-func (m *PermitModel) Getpermits() ([]PermitModelPermitID, error) {
+func (m *APPDB) Getpermits() ([]PermitModelPermitID, error) {
 	stmt := `SELECT * FROM permitid ORDER BY id ASC`
 	rows, err := m.DB.Query(stmt)
 	if err != nil {
