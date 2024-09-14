@@ -5,13 +5,12 @@ import (
 
 	"log"
 
-	models "github.com/integralnova/Project-Manager/internal"
+	models "github.com/integralnova/Project-Manager/models"
 )
 
 type PermitModel struct {
 	DB *sql.DB
 }
-
 
 func (m *PermitModel) Insert(permit models.PermitsModel) error {
 

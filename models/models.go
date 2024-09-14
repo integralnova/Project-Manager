@@ -1,8 +1,16 @@
 package models
 
-import "time"
+import (
+	"time"
 
-//deprecate
+	"database/sql"
+)
+
+type Datatings struct {
+	DB *sql.DB
+}
+
+// deprecate
 type PermitsModel struct {
 	ID           int
 	PermitID     string

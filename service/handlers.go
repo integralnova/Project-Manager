@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	models "github.com/integralnova/Project-Manager/internal"
+	"github.com/integralnova/Project-Manager/models"
 )
 
 func (app *app) getpermits(w http.ResponseWriter, r *http.Request) {
