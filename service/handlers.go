@@ -1,7 +1,6 @@
 package service
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
 	"time"
@@ -38,22 +37,23 @@ func (app *app) createPost(w http.ResponseWriter, r *http.Request) {
 func (app *app) newPermit(w http.ResponseWriter, r *http.Request) {
 
 	err := r.ParseForm()
-	fmt.Println(r.PostForm)
 	if err != nil {
 		http.Error(w, err.Error(), 400)
 		return
 	}
 
+	dr, _ := time.Parse("2006-01-02", r.PostForm.Get("date_received"))
+	dd, _ := time.Parse("2006-01-02", r.PostForm.Get("date_due"))
+
 	permit := models.PermitsModel{
 		PermitID:     r.PostForm.Get("permit_id"),
 		CompanyName:  r.PostForm.Get("company_name"),
 		Reference:    r.PostForm.Get("reference"),
-		DateReceived: time.Now(),
-		DateDue:      time.Now().AddDate(0, 0, 30),
+		DateReceived: dr,
+		DateDue:      dd,
 		PermitStatus: r.PostForm.Get("permit_status"),
 		Designer:     r.PostForm.Get("name"),
 	}
-	fmt.Println(permit)
 
 	err = app.permits.Insert(permit)
 

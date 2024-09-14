@@ -1,4 +1,4 @@
-package dbmanager
+package sqlite
 
 import (
 	"database/sql"
@@ -23,7 +23,7 @@ func (m *PermitModel) Insert(permit models.PermitsModel) error {
 
 // time.Time parases incorrectly from datetime in sqlite
 func (m *PermitModel) Getpermits() ([]models.PermitsModel, error) {
-	stmt := `SELECT * FROM permits ORDER BY id DESC`
+	stmt := `SELECT * FROM permits ORDER BY id ASC`
 	rows, err := m.DB.Query(stmt)
 	if err != nil {
 		return nil, err
