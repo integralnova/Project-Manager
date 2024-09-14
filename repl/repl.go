@@ -115,7 +115,7 @@ func newpermit(app app, input []string, scanner *bufio.Scanner) {
 	}
 
 	p := Db.PermitModelPermitID{Permit: input[1]}
-	err := app.permits.NewPermit(p)
+	err := app.permits.InsertPermit(p)
 	if err != nil {
 		fmt.Println(err)
 	}

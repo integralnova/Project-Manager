@@ -4,8 +4,8 @@ import (
 	"log"
 )
 
-func (m *Datatings) NewPermit(permit PermitModelPermitID) error {
-	stmt := `INSERT INTO permitid (permitID)
+func (m *Datatings) UpdatePermit(permit PermitModelPermitID) error {
+	stmt := `UPSERT INTO permitid (permitID)
 	VALUES (?)`
 	_, err := m.DB.Exec(stmt, permit.Permit)
 	log.Println(err)
@@ -60,3 +60,14 @@ func (m *Datatings) Getpermits() ([]PermitModelPermitID, error) {
 
 	return permits, nil
 }
+
+/* TODO
+
+
+UpdatePermitCompany
+UpdatePermitDesigner
+UpdatePermitDateReceived
+updatePermitDateDue
+updatePermitDateSubmitted
+
+*/

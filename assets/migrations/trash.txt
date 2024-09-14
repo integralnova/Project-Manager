@@ -1,50 +1,6 @@
--- +goose Up
--- +goose StatementBegin
+FOREIGN KEY (permit) REFERENCES permitid(id) NOT NULL
 
-/* deprecated */
-CREATE TABLE permits (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  permitID TEXT ,
-  companyName TEXT ,
-  reference TEXT,
-  dateReceived DATETIME,
-  dateDue DATETIME,
-  permitStatus TEXT,
-  designer TEXT
-);
-/* deprecated */
 
-CREATE TABLE permitid (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  permitID TEXT
-);
-
-CREATE TABLE permit_company (
-  permit TEXT,
-  companyName TEXT
-);
-
-CREATE TABLE permit_designer (
-  permit TEXT,
-  designer TEXT,
-  dateStarted DATETIME,
-  dateCompleted DATETIME //refactor need goose up
-);
-
-CREATE TABLE permit_date_received (
-  permit TEXT,
-  dateReceived DATETIME
-);
-
-CREATE TABLE permit_date_due (
-  permit TEXT,
-  dateDue DATETIME
-);
-
-CREATE TABLE permit_date_submited (
-  permit TEXT,
-  dateSubmited DATETIME
-);
 /*
 INSERT INTO permits (permitID, reference, companyName, dateReceived, dateDue, permitStatus, designer) VALUES ('240228', 'kgcdt', 'CL', '2010-06-23 00:00:00', '2005-11-09 00:00:00', 'QC', 'Shelby Rijkeseis');
 INSERT INTO permits (permitID, reference, companyName, dateReceived, dateDue, permitStatus, designer) VALUES ('240629', 'uyxnl', 'BH', '2008-02-04 00:00:00', '2007-05-27 00:00:00', 'Pole Foreman', 'Wendall Tidcomb');
@@ -61,10 +17,3 @@ INSERT INTO permits (permitID, reference, companyName, dateReceived, dateDue, pe
 INSERT INTO permits (permitID, reference, companyName, dateReceived, dateDue, permitStatus, designer) VALUES ('241623', 'bcdef', 'CL', '2014-12-15 00:00:00', '2015-05-10 00:00:00', 'Rejected', 'Casey Lee');
 INSERT INTO permits (permitID, reference, companyName, dateReceived, dateDue, permitStatus, designer) VALUES ('241724', 'ghijk', 'BH', '2011-06-22 00:00:00', '2011-11-30 00:00:00', 'Completed', 'Morgan Davis');
 */
-
--- +goose StatementEnd
-
--- +goose Down
--- +goose StatementBegin
-DROP TABLE permits;
--- +goose StatementEnd
