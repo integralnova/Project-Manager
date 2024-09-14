@@ -12,6 +12,7 @@ type PermitModel struct {
 	DB *sql.DB
 }
 
+
 func (m *PermitModel) Insert(permit models.PermitsModel) error {
 
 	stmt := `INSERT INTO permits (permitID, companyName, reference, dateReceived, dateDue, permitStatus, designer)

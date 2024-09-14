@@ -25,7 +25,7 @@ CREATE TABLE permit_designer (
   permit TEXT,
   designer TEXT,
   dateStarted DATETIME,
-  dateFinished DATETIME
+  dateCompleted DATETIME //refactor need goose up
 );
 
 CREATE TABLE permit_date_received (

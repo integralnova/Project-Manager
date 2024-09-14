@@ -2,6 +2,7 @@ package models
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 )
 
@@ -24,6 +25,19 @@ func (m *PermitModel) UpdatePermitCompany(permit PermitModelPermitCompany) error
 	log.Println(err)
 	return err
 }
+
+func (m *PermitModel) UpdatePermitDesigner(permit PermitModelPermitDesigner) error {
+	stmt := `INSERT INTO permit_designer (permit, designer, dateStarted, dateFinished)
+	VALUES (?, ?, ?, ?)`
+	a, err := m.DB.Exec(stmt, permit.Permit, permit.Designer, permit.DateStarted, permit.DateCompleted)
+	log.Println(err)
+	a1, _ := a.LastInsertId()
+	a2, _ := a.RowsAffected()
+	fmt.Print(a1, a2)
+	return err
+}
+
+func (m *PemritModel) UpdatePermit
 
 func (m *PermitModel) Getpermits() ([]PermitModelPermitID, error) {
 	stmt := `SELECT * FROM permitid ORDER BY id ASC`

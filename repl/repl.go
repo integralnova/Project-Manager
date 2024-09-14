@@ -59,6 +59,12 @@ exit:
 			if err != nil {
 				fmt.Println(err)
 			}
+		case "newdesigner":
+			p := models.PermitModelPermitDesigner{Permit: input[1], Designer: input[2]}
+			err := app.permits.UpdatePermitDesigner(p)
+			if err != nil {
+				fmt.Println(err)
+			}
 		case "exit":
 			break exit
 		default:
