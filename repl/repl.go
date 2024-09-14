@@ -8,7 +8,8 @@ import (
 	"os"
 	"strings"
 
-	sqlite "github.com/integralnova/Project-Manager/sqlite"
+	models "github.com/integralnova/Project-Manager/internal"
+	sqlite "github.com/integralnova/Project-Manager/internal"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -42,12 +43,22 @@ exit:
 		switch text {
 		case "permits":
 			a, _ := app.permits.Getpermits()
+			fmt.Println(a)
 			for _, i := range a {
 				fmt.Println(i)
 			}
 		case "new":
-			// Create a new permit
-		case "search":
+			p := models.PermitModelPermitID{Permit: input[1]}
+			err := app.permits.NewPermit(p)
+			if err != nil {
+				fmt.Println(err)
+			}
+		case "newcompany":
+			p := models.PermitModelPermitCompany{Permit: input[1], CompanyName: input[2]}
+			err := app.permits.UpdatePermitCompany(p)
+			if err != nil {
+				fmt.Println(err)
+			}
 		case "exit":
 			break exit
 		default:
