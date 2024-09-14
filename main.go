@@ -12,8 +12,9 @@ func main() {
 }
 
 //TODO:
-//- Model
-//// CRUD etc
-//- Goose/DB stuff
-
-//pcs
+//- Validate from client side
+//- Validation before data entry
+//- Probably need to refactor a bunch before going too far
+//- Do I even need shell
+//- Date format bug
+//- UI more useful way to intereact with rows

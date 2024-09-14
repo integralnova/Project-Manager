@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	sqlite "github.com/integralnova/Project-Manager/dbManager"
+	sqlite "github.com/integralnova/Project-Manager/sqlite"
 	_ "github.com/mattn/go-sqlite3"
 )
 
