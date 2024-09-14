@@ -11,6 +11,38 @@ CREATE TABLE permits (
   designer TEXT
 );
 
+CREATE TABLE permitid (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  permitID TEXT
+);
+
+CREATE TABLE permit_company (
+  permit TEXT,
+  companyName TEXT
+);
+
+CREATE TABLE permit_designer (
+  permit TEXT,
+  designer TEXT,
+  dateStarted DATETIME,
+  dateFinished DATETIME
+);
+
+CREATE TABLE permit_date_received (
+  permit TEXT,
+  dateReceived DATETIME
+);
+
+CREATE TABLE permit_date_due (
+  permit TEXT,
+  dateDue DATETIME
+);
+
+CREATE TABLE permit_date_submited (
+  permit TEXT,
+  dateSubmited DATETIME
+);
+
 INSERT INTO permits (permitID, reference, companyName, dateReceived, dateDue, permitStatus, designer) VALUES ('240228', 'kgcdt', 'CL', '2010-06-23 00:00:00', '2005-11-09 00:00:00', 'QC', 'Shelby Rijkeseis');
 INSERT INTO permits (permitID, reference, companyName, dateReceived, dateDue, permitStatus, designer) VALUES ('240629', 'uyxnl', 'BH', '2008-02-04 00:00:00', '2007-05-27 00:00:00', 'Pole Foreman', 'Wendall Tidcomb');
 INSERT INTO permits (permitID, reference, companyName, dateReceived, dateDue, permitStatus, designer) VALUES ('240703', 'omhvq', 'BH', '2001-12-05 00:00:00', '2006-07-27 00:00:00', 'WO', 'Tami Batrip');
