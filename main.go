@@ -16,4 +16,6 @@ func main() {
 //- Validation before data entry
 //- Probably need to refactor a bunch before going too far
 //- UI more useful way to intereact with rows
-//- CRUD CRUD CRUD
+//- CRUD CRUD CRUD.
+
+//'
