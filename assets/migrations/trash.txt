@@ -17,3 +17,20 @@ INSERT INTO permits (permitID, reference, companyName, dateReceived, dateDue, pe
 INSERT INTO permits (permitID, reference, companyName, dateReceived, dateDue, permitStatus, designer) VALUES ('241623', 'bcdef', 'CL', '2014-12-15 00:00:00', '2015-05-10 00:00:00', 'Rejected', 'Casey Lee');
 INSERT INTO permits (permitID, reference, companyName, dateReceived, dateDue, permitStatus, designer) VALUES ('241724', 'ghijk', 'BH', '2011-06-22 00:00:00', '2011-11-30 00:00:00', 'Completed', 'Morgan Davis');
 */
+
+
+type selector interface {
+	Select()
+}
+
+type inserter interface {
+	Insert()
+}
+
+type updater interface {
+	Update()
+}
+
+type deleter interface {
+	Delete()
+}
