@@ -61,6 +61,32 @@ func (m *Datatings) Getpermits() ([]PermitModelPermitID, error) {
 	return permits, nil
 }
 
+func (m *Datatings) GetPermitById(id int) (PermitModelPermitID, error) {
+	stmt := `SELECT * FROM permitid WHERE id = ?`
+	row := m.DB.QueryRow(stmt, id)
+
+	p := PermitModelPermitID{}
+	err := row.Scan(&p.ID, &p.Permit)
+	if err != nil {
+		return PermitModelPermitID{}, err
+	}
+
+	return p, nil
+}
+
+func (m *Datatings) GetPermitByName(name string) (PermitsModel, error) {
+	stmt := `SELECT * FROM permit_company WHERE companyName = ?`
+	row := m.DB.QueryRow(stmt, name)
+
+	p := PermitsModel{}
+	err := row.Scan(&p.PermitID, &p.CompanyName, &p.Reference, &p.DateReceived, &p.DateDue, &p.PermitStatus, &p.Designer)
+	if err != nil {
+		return PermitsModel{}, err
+	}
+
+	return p, nil
+}
+
 /* TODO
 
 GetPermitId

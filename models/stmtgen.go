@@ -11,12 +11,14 @@ type Query struct {
 	Fields map[string]Field
 }
 
+//TODO Actually learn sql
+
 func (q Query) Select() string {
 	//"`SELECT * FROM permitid ORDER BY id ASC`"
 	fields := ""
 	for _, i := range q.Fields {
 		fields += q.Fields[i.Name].Name + ", "
-		
+
 	}
 	stmt := fmt.Sprintf("SELECT %s FROM %s ", fields, q.Table)
 

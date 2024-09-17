@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	sqlite "github.com/integralnova/Project-Manager/sqlite"
+	sqlite "github.com/integralnova/Project-Manager/permit_tracker/sqlite"
 	_ "github.com/mattn/go-sqlite3"
 )
 
