@@ -50,7 +50,7 @@ exit:
 			newpermit(app, input, scanner)
 		case "newcompany":
 			p := Db.PermitModelPermitCompany{Permit: input[1], CompanyName: input[2]}
-			err := app.permits.UpdatePermitCompany(p)
+			err := app.permits.InsertPermitCompany(p)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -115,7 +115,7 @@ func newpermit(app app, input []string, scanner *bufio.Scanner) {
 	}
 
 	p := Db.PermitModelPermitID{Permit: input[1]}
-	err := app.permits.UpdatePermit(p)
+	err := app.permits.InsertPermit(p)
 	if err != nil {
 		fmt.Println(err)
 	}

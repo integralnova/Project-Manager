@@ -15,7 +15,7 @@ func (app *app) getpermits(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	t, err := template.ParseFiles("./templates/permits.html")
+	t, err := template.ParseFiles("./assets/templates/permits.html")
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return

@@ -1,15 +1,13 @@
 package permit_tracker
 
 import (
-	"fmt"
-
 	"github.com/integralnova/Project-Manager/models"
 )
 
 // working slice of permits. To be used with search and filter
-type OpenPermits map[string]models.PermitsModel
+type OpenPermits map[int]models.PermitsModel
 
-
+/*
 // OpenPermit adds a permit to the OpenPermits. When you arealdy have models.permitsModel
 // use OpenPermitfromDB to get it from the database
 // Idk if I need these two TODO
@@ -23,8 +21,8 @@ func (op *OpenPermits) OpenPermitFromMemory(permit *models.PermitsModel) error {
 
 
 // OpenPermitFromDB gets a permit from the database
-func (op *OpenPermits) OpenPermitFromDB(m *models.Datatings, permitID string) error {
-	permit, err := m.GetPermitByName(permitID)
+func (op *OpenPermits) OpenPermitFromDB(m *models.Datatings, permitID int) error {
+	permit, err := m.GetPermitById(permitID)
 	if err != nil {
 		return fmt.Errorf("permit not found")
 	}
@@ -50,3 +48,4 @@ func (op *OpenPermits) RemoveOpenPermit(permitID string) error {
 	return fmt.Errorf("permit not in open permits")
 
 }
+*/

@@ -4,37 +4,35 @@ import (
 	"log"
 )
 
-func (m *Datatings) UpdatePermit(permit PermitModelPermitID) error {
+// How to deal with duplicates.
+// Find at creation. use UPSERT
+// Might have duplicate permit names
+// Insert permit
+func (m *Datatings) InsertPermit(permit PermitModelPermitID) error {
 	stmt := `INSERT INTO permitid (permitID)
 	VALUES (?)`
 	_, err := m.DB.Exec(stmt, permit.Permit)
-	log.Println(err)
-	return err
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	return nil
 }
 
-func (m *Datatings) UpdatePermitCompany(permit PermitModelPermitCompany) error {
+// Insert permit_company
+func (m *Datatings) InsertPermitCompany(permit PermitModelPermitCompany) error {
 	stmt := `INSERT INTO permit_company (permit, companyName)
 	VALUES (?, ?)`
 	_, err := m.DB.Exec(stmt, permit.Permit, permit.CompanyName)
-	log.Println(err)
-	return err
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	return nil
 }
 
-func (m *Datatings) UpdatePermitDesigner(permit PermitModelPermitDesigner) error {
-	stmt := `INSERT INTO permit_designer (permit, designer, dateStarted, dateFinished)
-	VALUES (?, ?, ?, ?)`
-	_, err := m.DB.Exec(stmt, permit.Permit, permit.Designer, permit.DateStarted, permit.DateCompleted)
-	log.Println(err)
-	return err
-}
-
-func (m *Datatings) UpdatePermitDateReceived(permit PermitModelPermitDateReceived) error {
-	stmt := `UPSERT permit_designer SET dateFinished = ? WHERE permit = ?`
-	_, err := m.DB.Exec(stmt, permit.DateReceived, permit.Permit)
-	log.Println(err)
-	return err
-}
-
+// All permits
+// NEEDS rewrite
 func (m *Datatings) Getpermits() ([]PermitModelPermitID, error) {
 	stmt := `SELECT * FROM permitid ORDER BY id ASC`
 	rows, err := m.DB.Query(stmt)
@@ -61,6 +59,7 @@ func (m *Datatings) Getpermits() ([]PermitModelPermitID, error) {
 	return permits, nil
 }
 
+// find permit by id WHY?
 func (m *Datatings) GetPermitById(id int) (PermitModelPermitID, error) {
 	stmt := `SELECT * FROM permitid WHERE id = ?`
 	row := m.DB.QueryRow(stmt, id)
@@ -74,29 +73,71 @@ func (m *Datatings) GetPermitById(id int) (PermitModelPermitID, error) {
 	return p, nil
 }
 
-func (m *Datatings) GetPermitByName(name string) (PermitsModel, error) {
-	stmt := `SELECT * FROM permit_company WHERE companyName = ?`
-	row := m.DB.QueryRow(stmt, name)
+// find company by permit
+func (m *Datatings) GetCompanyByPermit(company string) (PermitModelPermitCompany, error) {
+	stmt := ""
+	row := m.DB.QueryRow(stmt, company)
 
-	p := PermitsModel{}
-	err := row.Scan(&p.PermitID, &p.CompanyName, &p.Reference, &p.DateReceived, &p.DateDue, &p.PermitStatus, &p.Designer)
+	p := PermitModelPermitCompany{}
+	err := row.Scan(&p.Permit, &p.CompanyName)
 	if err != nil {
-		return PermitsModel{}, err
+		return PermitModelPermitCompany{}, err
 	}
 
 	return p, nil
 }
 
+// Some fields in Permit Designer need to be nil sometimes. Or need new table and model. Design finish date not always available//
+// https://stackoverflow.com/questions/43854117/detecting-uninitialized-struct-fields
+// Does inserting with default fields in the struct mess with db?
+func (m *Datatings) InsertDesigner(p PermitModelPermitDesigner) error {
+	stmt := `INSERT INTO permit_designer (permit, designer, dateStarted, dateCompleted) VALUE (?,?,?,?)`
+	_, err := m.DB.Exec(stmt, p.Permit, p.Designer, p.DateStarted, p.DateCompleted)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	return nil
+}
+
+// get designer. Uh what about when date completed is null
+func (m *Datatings) GetDesigner(permit string) (PermitModelPermitDesigner, error) {
+	stmt := ""
+	row := m.DB.QueryRow(stmt, permit)
+
+	p := PermitModelPermitDesigner{}
+
+	err := row.Scan(&p.Permit, &p.Designer, &p.DateStarted, &p.DateCompleted)
+
+	if err != nil {
+		return PermitModelPermitDesigner{}, err
+	}
+	return p, nil
+
+}
+
+//insert permit date received
+
+func (m *Datatings) InsertDateReceived(p PermitModelPermitDateReceived) error {
+	stmt := ""
+	_, err := m.DB.Exec(stmt, p.Permit, p.DateReceived)
+	if err != nil {
+		return err
+		log.Println(err)
+	}
+
+	return nil
+}
+
 /* TODO
 
-GetPermitId
-GetPermitById
-GetPermitCompany
 
-UpdatePermitCompany
-UpdatePermitDesigner
-UpdatePermitDateReceived
-updatePermitDateDue
-updatePermitDateSubmitted
+insert design start
+insert design finish
+
+
+get permit date received
+insert permit date submitted
+get permit date submitted
 
 */
