@@ -1,9 +1,5 @@
 package models
 
-import (
-	"log"
-)
-
 // How to deal with duplicates.
 // Find at creation. use UPSERT
 // Might have duplicate permit names
@@ -13,7 +9,6 @@ func (m *Datatings) InsertPermit(permit PermitModelPermitID) error {
 	VALUES (?)`
 	_, err := m.DB.Exec(stmt, permit.Permit)
 	if err != nil {
-		log.Println(err)
 		return err
 	}
 	return nil
@@ -25,7 +20,6 @@ func (m *Datatings) InsertPermitCompany(permit PermitModelPermitCompany) error {
 	VALUES (?, ?)`
 	_, err := m.DB.Exec(stmt, permit.Permit, permit.CompanyName)
 	if err != nil {
-		log.Println(err)
 		return err
 	}
 	return nil
@@ -94,11 +88,14 @@ func (m *Datatings) InsertDesigner(p PermitModelPermitDesigner) error {
 	stmt := `INSERT INTO permit_designer (permit, designer, dateStarted, dateCompleted) VALUE (?,?,?,?)`
 	_, err := m.DB.Exec(stmt, p.Permit, p.Designer, p.DateStarted, p.DateCompleted)
 	if err != nil {
-		log.Println(err)
 		return err
 	}
 	return nil
 }
+/* TODO
+insert design start
+insert design finish
+*/
 
 // get designer. Uh what about when date completed is null
 func (m *Datatings) GetDesigner(permit string) (PermitModelPermitDesigner, error) {
@@ -123,21 +120,23 @@ func (m *Datatings) InsertDateReceived(p PermitModelPermitDateReceived) error {
 	_, err := m.DB.Exec(stmt, p.Permit, p.DateReceived)
 	if err != nil {
 		return err
-		log.Println(err)
 	}
 
 	return nil
 }
 
-/* TODO
+// insert permit date submitted
+func (m *Datatings) InsertDateSumbmited(p PermitModelPermitDateSubmit) error {
+	stmt := "INSERT INTO permit_date_submited"
+	_, err := m.DB.Exec(stmt, p.Permit, p.DateSubmitted)
+	if err != nil {
+		return err
+	}
+	return nil
 
+}
 
-insert design start
-insert design finish
-
-
+/*
 get permit date received
-insert permit date submitted
 get permit date submitted
-
 */
