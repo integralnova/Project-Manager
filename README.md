@@ -4,6 +4,7 @@
 
 <h2> Dependencies</h2>'
 
-<p> SQLite Driver: github.com/mattn/go-sqlite3  </p>
+<p> SQLite Driver: github.com/mattn/go-sqlite3  
 
-<p> Test</p>
+goose goose -dir=assets/migrations sqlite3 app.db up </p>
+

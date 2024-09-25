@@ -1,61 +1,58 @@
 -- +goose Up
 -- +goose StatementBegin
 
-/* deprecated */
+CREATE TABLE permitid (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  permitID TEXT
+);
+
 CREATE TABLE permits (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  permitID TEXT ,
-  companyName TEXT ,
+  permitID TEXT,
+  companyName TEXT,
   reference TEXT,
   dateReceived DATETIME,
   dateDue DATETIME,
   permitStatus TEXT,
   designer TEXT
 );
-/* deprecated */
-
-CREATE TABLE permitid (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  permitID TEXT
-);
 
 CREATE TABLE permit_company (
-  permit TEXT,
-  companyName TEXT,
-  FOREIGN KEY (permit) REFERENCES permitid(id) NOT NULL
+  permit INTEGER,
+  companyName TEXT
 );
 
 CREATE TABLE permit_designer (
-  permit TEXT,
+  permit INTEGER,
   designer TEXT,
   dateStarted DATETIME,
-  dateCompleted DATETIME, 
-  FOREIGN KEY (permit) REFERENCES permitid(id) NOT NULL
+  dateCompleted DATETIME
 );
 
 CREATE TABLE permit_date_received (
-  permit TEXT,
-  dateReceived DATETIME,
-  FOREIGN KEY (permit) REFERENCES permitid(id) NOT NULL
+  permit INTEGER,
+  dateReceived DATETIME
 );
 
 CREATE TABLE permit_date_due (
-  permit TEXT,
+  permit INTEGER,
   dateDue DATETIME
-  FOREIGN KEY (permit) REFERENCES permitid(id) NOT NULL
 );
 
 CREATE TABLE permit_date_submited (
-  permit TEXT,
+  permit INTEGER,
   dateSubmited DATETIME
-  FOREIGN KEY (permit) REFERENCES permitid(id) NOT NULL
 );
-
-
 
 -- +goose StatementEnd
 
 -- +goose Down
 -- +goose StatementBegin
 DROP TABLE permits;
+DROP TABLE permitid;
+DROP TABLE permit_company;
+DROP TABLE permit_designer;
+DROP TABLE permit_date_received;
+DROP TABLE permit_date_due;
+DROP TABLE permit_date_submited;
 -- +goose StatementEnd
