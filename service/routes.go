@@ -8,5 +8,7 @@ func (app *app) routes() http.Handler {
 	mux.HandleFunc("GET /posts/create", app.createPost)
 	mux.HandleFunc("POST /permits/create", app.newPermit)
 	mux.HandleFunc("GET /permits", app.getpermits)
+	mux.HandleFunc("POST /permit/id", app.getpermit)
 	return mux
+
 }

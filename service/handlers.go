@@ -8,6 +8,10 @@ import (
 	"github.com/integralnova/Project-Manager/models"
 )
 
+func(app *app) getpermit(w http.ResponseWriter, r *http.Request){
+	
+}
+
 func (app *app) getpermits(w http.ResponseWriter, r *http.Request) {
 	permits, err := app.permits.Getpermits()
 	if err != nil {
