@@ -1,0 +1,106 @@
+{{define "body"}}
+<body>
+    <div id="table-wrapper">
+        <div id="table-scroll">
+            <table>
+                <thead>
+
+                    <tr>
+                        <th>Permit</th>
+                        <th>CompanyName</th>
+                        <th>Reference</th>
+                        <th>DateReceived</th>
+                        <th>DateDue</th>
+                        <th>Designer</th>
+                        <th>Permit Status</th>
+                    </tr>
+                    <tr></tr>
+                    <form action="/permits/create" method="POST">
+
+                        <td>
+
+                            <div>
+                                <label for="PermitID">Permit</label>
+                                <input type="text" id="PermitID" name="permit_id" />
+                            </div>
+
+                        </td>
+                        <td>
+
+                            <div>
+                                <label for="CompanyName">Company</label>
+                                <input type="text" id="CompanyName" name="company_name" />
+                            </div>
+
+                        </td>
+                        <td>
+
+                            <div>
+                                <label for="Reference">Reference</label>
+                                <input type="text" id="Reference" name="reference" />
+                            </div>
+
+                        </td>
+                        <td>
+
+                            <div>
+                                <label for="DateReceived">Date Received</label>
+                                <input type="date" id="DateReceived" name="date_received"  />
+                            </div>
+
+                        </td>
+                        <td>
+
+                            <div>
+                                <label for="DateDue">Due Date</label>
+                                <input type="date" id="DateDue" name="date_due"  />
+                            </div>
+
+                        </td>
+                        <td>
+
+                            <div>
+                                <label for="Designer">Designer</label>
+                                <input type="text" id="Designer" name="name" />
+                            </div>
+
+                        </td>
+                        <td>
+
+                            <div>
+                                <label for="PermitStatus">Permit Status</label>
+                                <input type="text" id="PermitStatus" name="permit_status" />
+                            </div>
+
+                        </td>
+
+                        <td>
+
+                            <button type="submit">Create Permit</button>
+
+                        </td>
+                    </form>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    {{range .permits}}
+                    <tr>
+
+                        <td>{{.PermitID}}</td>
+                        <td>{{.CompanyName}}</td>
+                        <td>{{.Reference}}</td>
+                        <td>{{.DateReceived}}</td>
+                        <td>{{.DateDue}}</td>
+                        <td>{{.Designer}}</td>
+                        <td>{{.PermitStatus}}</td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+
+{{end}}
+
