@@ -9,6 +9,10 @@ import (
 	"github.com/integralnova/Project-Manager/permit_tracker/sqlite"
 )
 
+var templates = []string{
+	"./assets/templates/permits.html",
+}
+
 func (app *app) getpermit(w http.ResponseWriter, r *http.Request) {
 
 }
@@ -20,13 +24,13 @@ func (app *app) getpermits(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	t, err := template.ParseFiles("./assets/templates/permits.html")
+	t, err := template.ParseFiles(templates...)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
 	}
 	p := make([]sqlite.PermitsViewModel, len(permits))
-	for i, _ := range permits {
+	for i := range permits {
 		p[i] = sqlite.TranslatePermit(permits[i])
 	}
 
