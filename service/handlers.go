@@ -6,10 +6,11 @@ import (
 	"time"
 
 	"github.com/integralnova/Project-Manager/models"
+	"github.com/integralnova/Project-Manager/permit_tracker/sqlite"
 )
 
-func(app *app) getpermit(w http.ResponseWriter, r *http.Request){
-	
+func (app *app) getpermit(w http.ResponseWriter, r *http.Request) {
+
 }
 
 func (app *app) getpermits(w http.ResponseWriter, r *http.Request) {
@@ -24,8 +25,12 @@ func (app *app) getpermits(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), 500)
 		return
 	}
+	p := make([]sqlite.PermitsViewModel, len(permits))
+	for i, _ := range permits {
+		p[i] = sqlite.TranslatePermit(permits[i])
+	}
 
-	t.Execute(w, map[string]any{"permits": permits})
+	t.Execute(w, map[string]any{"permits": p})
 }
 
 func (app *app) createPost(w http.ResponseWriter, r *http.Request) {

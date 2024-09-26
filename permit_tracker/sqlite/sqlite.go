@@ -2,7 +2,6 @@ package sqlite
 
 import (
 	"database/sql"
-
 	"log"
 
 	models "github.com/integralnova/Project-Manager/models"
@@ -12,11 +11,38 @@ type PermitModel struct {
 	DB *sql.DB
 }
 
+type PermitsViewModel struct {
+	ID           int
+	PermitID     string
+	CompanyName  string
+	Reference    string
+	DateReceived string
+	DateDue      string
+	PermitStatus string
+	Designer     string
+}
+
+func TranslatePermit(permit models.PermitsModel) PermitsViewModel {
+    return PermitsViewModel{
+        ID:           permit.ID,
+        PermitID:     permit.PermitID,
+        CompanyName:  permit.CompanyName,
+        Reference:    permit.Reference,
+        DateReceived: permit.DateReceived.Format("2006-01-02"), // Format the date
+        DateDue:      permit.DateDue.Format("2006-01-02"),      // Format the date
+        PermitStatus: permit.PermitStatus,
+        Designer:     permit.Designer,
+    }
+}
+
+
+
 func (m *PermitModel) Insert(permit models.PermitsModel) error {
 
 	stmt := `INSERT INTO permits (permitID, companyName, reference, dateReceived, dateDue, permitStatus, designer)
 	VALUES (?, ?, ?, ?, ?, ?, ?)`
-	_, err := m.DB.Exec(stmt, permit.PermitID, permit.CompanyName, permit.Reference, permit.DateReceived, permit.DateDue, permit.PermitStatus, permit.Designer)
+	_, err := m.DB.Exec(stmt, permit.PermitID, permit.CompanyName, permit.Reference, permit.DateReceived.Format("2006-01-02"), permit.DateDue.Format("2006-01-02"), permit.PermitStatus, permit.Designer)
+
 	log.Println(err)
 	return err
 }

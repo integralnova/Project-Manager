@@ -10,6 +10,7 @@ type Datatings struct {
 	DB *sql.DB
 }
 
+
 // deprecate
 type PermitsModel struct {
 	ID           int
@@ -21,6 +22,7 @@ type PermitsModel struct {
 	PermitStatus string
 	Designer     string
 }
+
 
 type PermitModelPermitID struct {
 	ID     int
