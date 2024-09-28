@@ -3,8 +3,11 @@
 <p>Simple Web App to track Permits</p>
 
 <h2> Dependencies</h2>'
+<p> GCC </p>
+<p> GOOSE
+go install golang.org/x/tools/gopls@latest
 
-<p> SQLite Driver: github.com/mattn/go-sqlite3  
+go install github.com/pressly/goose/v3/cmd/goose@latest
+goose goose -dir=assets/migrations sqlite3 app.db up 
 
-goose goose -dir=assets/migrations sqlite3 app.db up </p>
-
+</p>
