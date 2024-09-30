@@ -9,6 +9,3 @@
 `go install github.com/pressly/goose/v3/cmd/goose@latest`
 
 `goose goose -dir=assets/migrations sqlite3 app.db up `
-
-
-
