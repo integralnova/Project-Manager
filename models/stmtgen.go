@@ -24,15 +24,22 @@ func (q Query) Select() string {
 
 	return stmt
 }
+func (m *Datatings) GenericSelect(query string, dest *[]PermitsModel) error {
+	rows, err := m.DB.Query(query)
+	if err != nil {
+		return err
+	}
+	defer rows.Close()
 
-func Insert() string {
-	return ""
-}
+	var result PermitsModel
+	for rows.Next() {
+		// Scan the row data into result
+		if err := rows.Scan(&result.ID, &result.PermitID, &result.CompanyName, &result.Designer, &result.DateReceived, &result.DateDue, &result.PermitStatus, &result.Designer); err != nil {
+			return err
+		}
+		// Append the result to the slice
+		*dest = append(*dest, result)
+	}
 
-func Update() string {
-	return ""
-}
-
-func Delete() string {
-	return ""
+	return rows.Err() // Check for any errors encountered during iteration
 }

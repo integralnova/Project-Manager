@@ -5,12 +5,12 @@ import (
 	"log"
 	"net/http"
 
-	sqlite "github.com/integralnova/Project-Manager/permit_tracker/sqlite"
+	"github.com/integralnova/Project-Manager/models"
 	_ "github.com/mattn/go-sqlite3"
 )
 
 type app struct {
-	permits *sqlite.PermitModel
+	permits *models.Datatings
 }
 
 func WebService() {
@@ -20,7 +20,7 @@ func WebService() {
 	}
 
 	app := app{
-		permits: &sqlite.PermitModel{
+		permits: &models.Datatings{
 			DB: db,
 		},
 	}

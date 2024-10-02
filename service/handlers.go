@@ -1,12 +1,12 @@
 package service
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 	"time"
 
 	"github.com/integralnova/Project-Manager/models"
-	"github.com/integralnova/Project-Manager/permit_tracker/sqlite"
 )
 
 var templates = []string{
@@ -29,12 +29,8 @@ func (app *app) getpermits(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), 500)
 		return
 	}
-	p := make([]sqlite.PermitsViewModel, len(permits))
-	for i := range permits {
-		p[i] = sqlite.TranslatePermit(permits[i])
-	}
 
-	t.Execute(w, map[string]any{"permits": p})
+	t.Execute(w, map[string]any{"permits": permits})
 }
 
 func (app *app) createPost(w http.ResponseWriter, r *http.Request) {
@@ -48,7 +44,7 @@ func (app *app) createPost(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *app) newPermit(w http.ResponseWriter, r *http.Request) {
-
+	fmt.Println("new permit")
 	err := r.ParseForm()
 	if err != nil {
 		http.Error(w, err.Error(), 400)
@@ -58,22 +54,27 @@ func (app *app) newPermit(w http.ResponseWriter, r *http.Request) {
 	dr, _ := time.Parse("2006-01-02", r.PostForm.Get("date_received"))
 	dd, _ := time.Parse("2006-01-02", r.PostForm.Get("date_due"))
 
-	permit := models.PermitsModel{
-		PermitID:     r.PostForm.Get("permit_id"),
-		CompanyName:  r.PostForm.Get("company_name"),
-		Reference:    r.PostForm.Get("reference"),
-		DateReceived: dr,
-		DateDue:      dd,
-		PermitStatus: r.PostForm.Get("permit_status"),
-		Designer:     r.PostForm.Get("name"),
-	}
+	permit := models.NewPermitsModel()
+	permit.PermitID = isblank(r.PostForm, "permit_id", permit.PermitID)
+	permit.CompanyName = isblank(r.PostForm, "company_name", permit.CompanyName)
+	permit.Reference = isblank(r.PostForm, "reference", permit.Reference)
+	permit.DateReceived = dr
+	permit.DateDue = dd
+	permit.PermitStatus = isblank(r.PostForm, "permit_status", permit.PermitStatus)
+	permit.Designer = isblank(r.PostForm, "name", permit.Designer)
 
-	err = app.permits.Insert(permit)
+	err = app.permits.InsertPermit(permit)
 
 	if err != nil {
-		http.Error(w, err.Error(), 500)
+		fmt.Println(err)
 		return
 	}
 
 	http.Redirect(w, r, "/permits", http.StatusFound)
+}
+func isblank(form map[string][]string, key, defaultValue string) string {
+	if value := form[key]; len(value) > 0 && len(value[0]) > 0 {
+		return value[0]
+	}
+	return defaultValue
 }

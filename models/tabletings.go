@@ -1,17 +1,22 @@
 package models
 
+import "fmt"
+
 // How to deal with duplicates.
 // Find at creation. use UPSERT
 // Might have duplicate permit names
 // Insert permit
-func (m *Datatings) InsertPermit(permit PermitModelPermitID) error {
-	stmt := `INSERT INTO permitid (permitID)
-	VALUES (?)`
-	_, err := m.DB.Exec(stmt, permit.Permit)
+func (m *Datatings) InsertPermit(permit PermitsModel) error {
+	fmt.Println("Inserting permits")
+	stmt := `INSERT INTO permits (permitID, companyName, reference, dateReceived, dateDue, permitStatus, designer)
+	VALUES (?, ?, ?, ?, ?, ?, ?)`
+	_, err := m.DB.Exec(stmt, permit.PermitID, permit.CompanyName, permit.Reference, permit.DateReceived, permit.DateDue, permit.PermitStatus, permit.Designer)
 	if err != nil {
 		return err
 	}
+
 	return nil
+
 }
 
 // Insert permit_company
@@ -27,30 +32,19 @@ func (m *Datatings) InsertPermitCompany(permit PermitModelPermitCompany) error {
 
 // All permits
 // NEEDS rewrite
-func (m *Datatings) Getpermits() ([]PermitModelPermitID, error) {
-	stmt := `SELECT * FROM permitid ORDER BY id ASC`
-	rows, err := m.DB.Query(stmt)
+func (m *Datatings) Getpermits() ([]PermitsViewModel, error) {
+	stmt := `SELECT * FROM permits ORDER BY id ASC`
+	var permit []PermitsModel
+	err := m.GenericSelect(stmt, &permit)
 	if err != nil {
 		return nil, err
 	}
 
-	permits := []PermitModelPermitID{}
-
-	for rows.Next() {
-		p := PermitModelPermitID{}
-		err := rows.Scan(&p.ID, &p.Permit)
-		if err != nil {
-			return nil, err
-		}
-		permits = append(permits, p)
+	p := make([]PermitsViewModel, len(permit))
+	for i := range permit {
+		p[i] = TranslatePermit(permit[i])
 	}
-
-	err = rows.Err()
-	if err != nil {
-		return nil, err
-	}
-
-	return permits, nil
+	return p, nil
 }
 
 // find permit by id WHY?
@@ -92,6 +86,7 @@ func (m *Datatings) InsertDesigner(p PermitModelPermitDesigner) error {
 	}
 	return nil
 }
+
 /* TODO
 insert design start
 insert design finish

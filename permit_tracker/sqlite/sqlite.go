@@ -1,5 +1,5 @@
 package sqlite
-
+/*
 import (
 	"database/sql"
 	"log"
@@ -11,29 +11,9 @@ type PermitModel struct {
 	DB *sql.DB
 }
 
-type PermitsViewModel struct {
-	ID           int
-	PermitID     string
-	CompanyName  string
-	Reference    string
-	DateReceived string
-	DateDue      string
-	PermitStatus string
-	Designer     string
-}
 
-func TranslatePermit(permit models.PermitsModel) PermitsViewModel {
-    return PermitsViewModel{
-        ID:           permit.ID,
-        PermitID:     permit.PermitID,
-        CompanyName:  permit.CompanyName,
-        Reference:    permit.Reference,
-        DateReceived: permit.DateReceived.Format("2006-01-02"), // Format the date
-        DateDue:      permit.DateDue.Format("2006-01-02"),      // Format the date
-        PermitStatus: permit.PermitStatus,
-        Designer:     permit.Designer,
-    }
-}
+
+
 
 
 
@@ -86,3 +66,4 @@ func (m *PermitModel) ChangeDateReceived(date string) error {
 	_, err := m.DB.Exec(stmt, date)
 	return err
 }
+*/ 

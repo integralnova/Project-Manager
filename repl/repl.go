@@ -47,7 +47,18 @@ exit:
 		case "permits":
 			app.showperimts()
 		case "new":
-			newpermit(app, input, scanner)
+			fmt.Print("temp")
+			//newpermit(app, input, scanner)
+		case "test":
+			var test []Db.PermitsViewModel
+			test, err := app.permits.Getpermits()
+
+			for _, p := range test {
+				fmt.Println(p)
+			}
+			fmt.Println(err)
+		case "test2":
+			fmt.Println("test2")
 		case "newcompany":
 			p := Db.PermitModelPermitCompany{Permit: input[1], CompanyName: input[2]}
 			err := app.permits.InsertPermitCompany(p)
@@ -107,6 +118,7 @@ func (app *app) showperimts() {
 	}
 }
 
+/*
 func newpermit(app app, input []string, scanner *bufio.Scanner) {
 
 	if len(input) < 2 {
@@ -120,3 +132,4 @@ func newpermit(app app, input []string, scanner *bufio.Scanner) {
 		fmt.Println(err)
 	}
 }
+*/
