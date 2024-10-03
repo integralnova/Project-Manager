@@ -22,37 +22,6 @@ type PermitsModel struct {
 	Designer     string
 }
 
-type PermitModelPermitID struct {
-	ID     int
-	Permit string
-}
-type PermitModelPermitCompany struct {
-	Permit      string
-	CompanyName string
-}
-
-type PermitModelPermitDesigner struct {
-	Permit        string
-	Designer      string
-	DateStarted   time.Time
-	DateCompleted time.Time
-}
-
-type PermitModelPermitDateReceived struct {
-	Permit       string
-	DateReceived time.Time
-}
-
-type PermitModelPermitDateDue struct {
-	Permit  string
-	DateDue time.Time
-}
-
-type PermitModelPermitDateSubmit struct {
-	Permit        string
-	DateSubmitted time.Time
-}
-
 type PermitsViewModel struct {
 	ID           int
 	PermitID     string
@@ -78,13 +47,13 @@ func TranslatePermit(permit PermitsModel) PermitsViewModel {
 }
 
 func NewPermitsModel() PermitsModel {
-    return PermitsModel{
-        PermitID:     "empty",
-        CompanyName:  "empty",
-        Reference:    "empty",
-        DateReceived: time.Now(), 
-        DateDue:      time.Now().AddDate(0, 1, 60),
-        PermitStatus: "empty",
-        Designer:     "empty",
-    }
+	return PermitsModel{
+		PermitID:     "empty",
+		CompanyName:  "empty",
+		Reference:    "empty",
+		DateReceived: time.Now(),
+		DateDue:      time.Now().AddDate(0, 1, 60),
+		PermitStatus: "empty",
+		Designer:     "empty",
+	}
 }

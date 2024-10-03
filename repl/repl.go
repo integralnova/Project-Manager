@@ -59,18 +59,7 @@ exit:
 			fmt.Println(err)
 		case "test2":
 			fmt.Println("test2")
-		case "newcompany":
-			p := Db.PermitModelPermitCompany{Permit: input[1], CompanyName: input[2]}
-			err := app.permits.InsertPermitCompany(p)
-			if err != nil {
-				fmt.Println(err)
-			}
-		case "newdesigner":
-			p := Db.PermitModelPermitDesigner{Permit: input[1], Designer: input[2]}
-			err := app.permits.UpdatePermitDesigner(p)
-			if err != nil {
-				fmt.Println(err)
-			}
+
 		case "exit":
 			break exit
 		default:
