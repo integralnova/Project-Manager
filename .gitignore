@@ -1,6 +1,6 @@
-# Ignore executable files
 *.exe
 *.db
+*.sh
 
 TODO.txt
 main

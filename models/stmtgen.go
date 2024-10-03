@@ -33,13 +33,11 @@ func (m *Datatings) GenericSelect(query string, dest *[]PermitsModel) error {
 
 	var result PermitsModel
 	for rows.Next() {
-		// Scan the row data into result
 		if err := rows.Scan(&result.ID, &result.PermitID, &result.CompanyName, &result.Designer, &result.DateReceived, &result.DateDue, &result.PermitStatus, &result.Designer); err != nil {
 			return err
 		}
-		// Append the result to the slice
 		*dest = append(*dest, result)
 	}
 
-	return rows.Err() // Check for any errors encountered during iteration
+	return rows.Err()
 }

@@ -10,7 +10,6 @@ type Datatings struct {
 	DB *sql.DB
 }
 
-// deprecate
 type PermitsModel struct {
 	ID           int
 	PermitID     string
