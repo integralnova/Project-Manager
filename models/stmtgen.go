@@ -24,6 +24,7 @@ func (q Query) Select() string {
 
 	return stmt
 }
+
 func (m *Datatings) GenericSelect(query string, dest *[]PermitsModel) error {
 	rows, err := m.DB.Query(query)
 	if err != nil {
@@ -33,7 +34,7 @@ func (m *Datatings) GenericSelect(query string, dest *[]PermitsModel) error {
 
 	var result PermitsModel
 	for rows.Next() {
-		if err := rows.Scan(&result.ID, &result.PermitID, &result.CompanyName, &result.Designer, &result.DateReceived, &result.DateDue, &result.PermitStatus, &result.Designer); err != nil {
+		if err := rows.Scan(&result.ID, &result.PermitID, &result.CompanyName, &result.Reference, &result.DateReceived, &result.DateDue, &result.PermitStatus, &result.Designer); err != nil {
 			return err
 		}
 		*dest = append(*dest, result)
