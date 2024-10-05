@@ -7,3 +7,5 @@ main
 Project-Manager
 
 /.vscode/*
+
+/*.sql
