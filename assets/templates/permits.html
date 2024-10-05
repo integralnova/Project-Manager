@@ -6,37 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Table with Random Data</title>
     <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            gap: 10px;
+        }
+        .filter {
+            display: flex;
+            grid-row: 1 / span 2;
+            grid-column: 1 / span auto;
+            background-color: #007bff;
+            width: 100px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .permitview {
+            display: flex;
+            grid-row: 1 / span 1;
+            grid-column: 1 / span auto;
+            background-color: aqua;
+            justify-content: center;
+            align-items: flex-start;
+            
+        }
+        .table-wrapper {
+            display: flex;
+            grid-row: 2 / span 1;
+            grid-column: 1 / span auto;
+            background-color: rgb(255, 255, 255);
+            
+            overflow-y: scroll;
+        }
+
         body {
             margin: 0;
-            /* Remove default margin */
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            height: 100vh;
-            overflow-y: scroll;
-            /* Enable vertical scrolling */
+            height: 100%;
+            overflow: hidden;
         }
 
         table {
             border-collapse: collapse;
             width: 100%;
             max-width: 1200px;
-            margin: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         th,
-        td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: center;
-        }
+     
 
-        th {
-            background-color: #007bff;
-            color: white;
-            font-weight: bold;
-        }
+        
 
         tbody tr:nth-child(even) {
             background-color: #f9f9f9;
@@ -49,109 +69,117 @@
         #table-scroll {
             height: calc(100vh - 50px);
             overflow: auto;
-            margin-top: 20px;
         }
     </style>
 </head>
 
 <body>
-    <div id="table-wrapper">
-        <div id="table-scroll">
-            <table>
-                <thead>
+    <div class="grid-container">
 
-                    <tr>
-                        <th>Permit</th>
-                        <th>CompanyName</th>
-                        <th>Reference</th>
-                        <th>DateReceived</th>
-                        <th>DateDue</th>
-                        <th>Designer</th>
-                        <th>Permit Status</th>
-                    </tr>
-                    <tr></tr>
-                    <form action="/permits/create" method="POST">
+        <div class="permitview" id="permitview">
+            <p>Permit View</p>
+        </div>
+        <div class="filter" id="filter">
+            <p>Filter</p>
+        </div>
+        <div class="table-wrapper" id="table-wrapper">
+            <div id="table-scroll">
+                <table>
+                    <thead>
 
-                        <td>
+                        <tr>
+                            <th>Permit</th>
+                            <th>CompanyName</th>
+                            <th>Reference</th>
+                            <th>DateReceived</th>
+                            <th>DateDue</th>
+                            <th>Designer</th>
+                            <th>Permit Status</th>
+                        </tr>
+                        <tr></tr>
+                        <form action="/permits/create" method="POST">
 
-                            <div>
-                                <label for="PermitID">Permit</label>
-                                <input type="text" id="PermitID" name="permit_id" />
-                            </div>
+                            <td>
 
-                        </td>
-                        <td>
+                                <div>
+                                    <label for="PermitID">Permit</label>
+                                    <input type="text" id="PermitID" name="permit_id" />
+                                </div>
 
-                            <div>
-                                <label for="CompanyName">Company</label>
-                                <input type="text" id="CompanyName" name="company_name" />
-                            </div>
+                            </td>
+                            <td>
 
-                        </td>
-                        <td>
+                                <div>
+                                    <label for="CompanyName">Company</label>
+                                    <input type="text" id="CompanyName" name="company_name" />
+                                </div>
 
-                            <div>
-                                <label for="Reference">Reference</label>
-                                <input type="text" id="Reference" name="reference" />
-                            </div>
+                            </td>
+                            <td>
 
-                        </td>
-                        <td>
+                                <div>
+                                    <label for="Reference">Reference</label>
+                                    <input type="text" id="Reference" name="reference" />
+                                </div>
 
-                            <div>
-                                <label for="DateReceived">Date Received</label>
-                                <input type="date" id="DateReceived" name="date_received"  />
-                            </div>
+                            </td>
+                            <td>
 
-                        </td>
-                        <td>
+                                <div>
+                                    <label for="DateReceived">Date Received</label>
+                                    <input type="date" id="DateReceived" name="date_received" />
+                                </div>
 
-                            <div>
-                                <label for="DateDue">Due Date</label>
-                                <input type="date" id="DateDue" name="date_due"  />
-                            </div>
+                            </td>
+                            <td>
 
-                        </td>
-                        <td>
+                                <div>
+                                    <label for="DateDue">Due Date</label>
+                                    <input type="date" id="DateDue" name="date_due" />
+                                </div>
 
-                            <div>
-                                <label for="Designer">Designer</label>
-                                <input type="text" id="Designer" name="name" />
-                            </div>
+                            </td>
+                            <td>
 
-                        </td>
-                        <td>
+                                <div>
+                                    <label for="Designer">Designer</label>
+                                    <input type="text" id="Designer" name="name" />
+                                </div>
 
-                            <div>
-                                <label for="PermitStatus">Permit Status</label>
-                                <input type="text" id="PermitStatus" name="permit_status" />
-                            </div>
+                            </td>
+                            <td>
 
-                        </td>
+                                <div>
+                                    <label for="PermitStatus">Permit Status</label>
+                                    <input type="text" id="PermitStatus" name="permit_status" />
+                                </div>
 
-                        <td>
+                            </td>
 
-                            <button type="submit">Create Permit</button>
+                            <td>
 
-                        </td>
-                    </form>
-                    </tr>
-                </thead>
-                <tbody id="table-body">
-                    {{range .permits}}
-                    <tr>
+                                <button type="submit">Create Permit</button>
 
-                        <td>{{.PermitID}}</td>
-                        <td>{{.CompanyName}}</td>
-                        <td>{{.Reference}}</td>
-                        <td>{{.DateReceived}}</td>
-                        <td>{{.DateDue}}</td>
-                        <td>{{.Designer}}</td>
-                        <td>{{.PermitStatus}}</td>
-                    </tr>
-                    {{end}}
-                </tbody>
-            </table>
+                            </td>
+                        </form>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        {{range .permits}}
+                        <tr>
+
+                            <td>{{.PermitID}}</td>
+                            <td>{{.CompanyName}}</td>
+                            <td>{{.Reference}}</td>
+                            <td>{{.DateReceived}}</td>
+                            <td>{{.DateDue}}</td>
+                            <td>{{.Designer}}</td>
+                            <td>{{.PermitStatus}}</td>
+                        </tr>
+                        {{end}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>
