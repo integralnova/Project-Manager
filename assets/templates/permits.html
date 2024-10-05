@@ -10,13 +10,14 @@
             display: grid;
             grid-template-columns: auto auto auto;
             gap: 10px;
+            height: 100vh;
         }
 
         .filter {
             display: flex;
             grid-row: 1 / span 2;
             grid-column: 1 / span auto;
-            background-color: #007bff;
+            background-color: #b8f5c7;
             width: 100px;
             justify-content: center;
             align-items: flex-start;
@@ -26,10 +27,16 @@
             display: flex;
             grid-row: 1 / span 1;
             grid-column: 1 / span auto;
-            background-color: aqua;
             justify-content: center;
             align-items: flex-start;
+            height: fit-content;
 
+            background-color: rgb(208, 231, 250);
+        }
+
+        .test {
+            height: 300px;
+            text-align: center;
         }
 
         .table-wrapper {
@@ -37,8 +44,7 @@
             grid-row: 2 / span 1;
             grid-column: 1 / span auto;
             background-color: rgb(255, 255, 255);
-
-            overflow-y: scroll;
+            overflow-y: auto;
         }
 
         body {
@@ -47,7 +53,6 @@
             justify-content: center;
             align-items: flex-start;
             height: 100%;
-            overflow: hidden;
         }
 
         table {
@@ -55,11 +60,6 @@
             width: 100%;
             max-width: 1200px;
         }
-
-        th,
-
-
-
 
         tbody tr:nth-child(even) {
             background-color: #f9f9f9;
@@ -80,7 +80,9 @@
     <div class="grid-container">
 
         <div class="permitview" id="permitview">
-            <p>Permit View</p>
+            <div class="test">
+                <p>Permit View</p>
+            </div>
         </div>
         <div class="filter" id="filter">
             <p>Filter</p>
@@ -188,40 +190,23 @@
 </body>
 
 </html>
-
 <script onload="">
-    let offset = 0;
-    const limit = 10;
+    const table = document.querySelector('table');
 
-    async function loadMoreData() {
-        const response = await fetch(`/api/permits?limit=${limit}&offset=${offset}`);
-        const data = await response.json();
-        const tableBody = document.getElementById('table-body');
+    table.addEventListener('click', async (event) => {
+        const clickedRow = event.target.closest('tr');
+        if (!clickedRow) return;
+        console.log(clickedRow.outerText);
+        console.log(clickedRow)
 
-        data.forEach(permit => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                    <td>${permit.ID}</td>
-                    <td>${permit.PermitID}</td>
-                    <td>${permit.CompanyName}</td>
-                    <td>${permit.Reference}</td>
-                    <td>${permit.DateReceived}</td>
-                    <td>${permit.DateDue}</td>
-                    <td>${permit.Owner}</td>
-                    <td>${permit.Status}</td>
-                `;
-            tableBody.appendChild(row);
+        const extractedText = clickedRow.outerText.split('\t')[0]; 
+
+        console.log("Extracted text:", extractedText);
+
+        const url = 'http://localhost:8000/permit/' + extractedText; 
+        const response = await fetch(url, {
+            method: 'GET'
         });
-
-        offset += limit;
-    }
-
-    window.addEventListener('scroll', () => {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            loadMoreData();
-        }
+        console.log(response)
     });
-
-    // Initial load
-    loadMoreData();
-</script>
+</script>s

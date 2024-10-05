@@ -1,10 +1,12 @@
 package service
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 
 	"github.com/integralnova/Project-Manager/models"
@@ -15,7 +17,33 @@ var templates = []string{
 }
 
 func (app *app) getpermit(w http.ResponseWriter, r *http.Request) {
+	id := ""
+	parts := strings.Split(r.URL.Path, "/")
+	if len(parts) >= 3 {
+		id = parts[2] // Assuming the 'id' is the third part of the path
+		// Now 'id' contains the value of the 'id' parameter
+		// ...
+	} else {
+		// Handle the case where the URL doesn't match the expected format
+		http.Error(w, "Invalid URL", http.StatusBadRequest)
+		return
+	}
 
+	permits, err := app.permits.GetPermit(id)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	jsonResponse, err := json.Marshal(permits)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+
+	w.Write(jsonResponse)
 }
 
 func (app *app) getpermits(w http.ResponseWriter, r *http.Request) {
