@@ -1,6 +1,6 @@
 <h1> Project Tracker WIP </h1>
 
-<p>Simple Web App to track Permits</p>
+<p> Web App to track Permits</p>
 
 <h2> Dependencies</h2>
 <h3> GCC </h3>
