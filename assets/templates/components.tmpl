@@ -1,6 +1,17 @@
-{{define "index"}}
-@head
-@body
+{{define "permitview"}}
+    <div class="permitview">
+    <div>
+        {{range .permits}}
+        <div>{{.PermitID}}</div>
+        <div>{{.CompanyName}}</div>
+        <div>{{.Reference}}</div>
+        <div>{{.DateReceived}}</div>
+        <div>{{.DateDue}}</div>
+        <div>{{.Designer}}</div>
+        <div>{{.PermitStatus}}</div>
+        </div>
+        {{end}}
+    </div>
 {{end}}
 
 
